@@ -164,8 +164,9 @@
 
 
 \title{Consistency results concerning $\pmb{\omega_1}$-trees}
-\date{14 ottobre 2016}
-\author{Andrea Gadotti}
+%\subtitle{Risultati di consistenza per alberi di altezza $\omega_1$}
+\author{Andrea Gadotti \hfill Relatore: Prof. Matteo Viale}
+\date{14 ottobre 2016 \hfill Correlatore: Prof. Sy Friedman}
 \institute{Università di Torino}
 \titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.png}}
 
@@ -180,6 +181,7 @@
 \setlength{\belowdisplayshortskip}{1pt}
 
 \maketitle
+
 
 \begin{frame}{Indice}
 \setbeamertemplate{section in toc}[sections numbered]
@@ -359,7 +361,7 @@ Sia $T$ un albero.
 \item L'\emph{$\alpha$-esimo livello di $T$} è l'insieme degli elementi di $T$ che hanno altezza $\alpha$.
 \item L'\emph{altezza di $T$} è il più piccolo ordinale $\gamma$ tale che l'altezza di ogni $x \in T$ è $< \gamma$.
 \item Un \emph{ramo} è un sottoinsieme linearmente ordinato massimale di $T$. L'altezza di un ramo si definisce nello stesso modo.
-\item Un ramo è \emph{cofinale in $T$} se contiene un nodo in ogni livello di $T$.
+\item Un ramo è \emph{cofinale in $T$} se ha la stessa altezza di $T$.
 %\item $T|\alpha$ is the subset of $T$ which contains every element of order strictly less than $\alpha$, i.e.\ $T|\alpha \defeq \cup_{\xi < \alpha} U_\xi$. Obviously $T|\alpha$ has height $\alpha$ if $\alpha \leq \height(T)$.
 %\item We say that a tree $(T_2,<_2)$ is an \emph{extension} of $(T_1,<_1)$ if ${<_1} = {<_2} \cap (T_1 \times T_1)$, an \emph{end-extension} if $T_1=T_2|\alpha$ for some $\alpha$.
 \end{itemize}
@@ -367,8 +369,15 @@ Sia $T$ un albero.
 
 
 \begin{frame}{L'albero ${}^{< \omega} 2$}
+\vspace{13pt}
 
-In ${}^{< \omega} 2$, l'altezza di un nodo corrisponde alla sua lunghezza vista come sequenza. Perciò il livello $n$-esimo contiene tutte e sole le sequenze in ${}^{< \omega} 2$ che hanno lunghezza $n$. L'albero ha altezza $\omega$. 
+\begin{overprint}
+\onslide<1> In ${}^{< \omega} 2$, l'altezza di un nodo corrisponde alla sua lunghezza vista come sequenza. Perciò il livello $n$-esimo contiene tutte e sole le sequenze in ${}^{< \omega} 2$ che hanno lunghezza $n$. 
+
+\onslide<2> Quindi ${}^{<\omega} 2$ ha altezza $\omega$ e tutti i suoi livelli sono insiemi finiti. Inoltre, $\{0^n : n < \omega\}$ è un ramo infinito (dove $0^n$ indica la sequenza $\underbrace{0000 \ldots}_{n}$).
+\end{overprint}
+
+\vspace{-10pt}
 
 \begin{center}
 \begin{forest}
@@ -432,6 +441,11 @@ Sia $T$ un albero di altezza $\omega$. Se i livelli di $T$ sono insiemi finiti, 
 Possiamo sostituire ``$T$ ha un ramo infinito'' con ``$T$ ha un ramo di altezza $\omega$'' oppure ``$T$ ha un ramo cofinale''.
 \end{alertblock}
 
+\pause
+
+\begin{exampleblock}{Domanda}
+Possiamo generalizzare il lemma di König per cardinali maggiori di $\omega$?
+\end{exampleblock}
 
 \end{frame}
 
@@ -448,19 +462,20 @@ T \defeq \{s \mid s \colon \alpha \to 2 \text{ con $\alpha < \omega_1$ e $s$ ha 
 \]
 e $<$ è come prima $\subsetneq$.
 
-\onslide<3> Consideriamo l'albero $(T,<)$ dove
-\[
-T \defeq \{s \mid s \colon \alpha \to 2 \text{ con $\alpha < \omega_1$ e $s$ ha un numero finito di 1}\}
-\]
-e $<$ è come prima $\subsetneq$. Con $0^\alpha$ indichiamo $\underbrace{00000000 \ldots}_{\alpha}$
+%\onslide<3> Consideriamo l'albero $(T,<)$ dove
+%\[
+%T \defeq \{s \mid s \colon \alpha \to 2 \text{ con $\alpha < \omega_1$ e $s$ ha un numero finito di 1}\}
+%\]
+%e $<$ è come prima $\subsetneq$. Con $0^\alpha$ indichiamo $\underbrace{00000000 \ldots}_{\alpha}$
 
-\onslide<4->
+\onslide<3>
+\vspace{-8pt}
 \begin{alertblock}{Osservazione}
-$T$ ha altezza $\omega_1$ e i livelli di $T$ sono tutti numerabili. In più, $\{0^\alpha : \alpha < \omega_1\}$ è un ramo in $T$ di altezza $\omega_1$.
+$T$ ha altezza $\omega_1$ e i livelli di $T$ sono tutti numerabili. In più, $\{0^\alpha : \alpha < \omega_1\}$ è un ramo in $T$ di altezza $\omega_1$. Non tutti i rami hanno altezza $\omega_1$: $\{1^n : n < \omega\}$ è un ramo di altezza $\omega$.
 \end{alertblock}
 \end{overprint}
 
-\vspace{-15pt}
+\vspace{-20pt}
 
 \visible<2->{
 \begin{center}
@@ -514,20 +529,11 @@ $T$ ha altezza $\omega_1$ e i livelli di $T$ sono tutti numerabili. In più, $\{
 
 \vspace{5pt}
 
-\begin{lemma}[König]
-Sia $T$ un albero di altezza $\omega$. Se i livelli di $T$ sono insiemi finiti, allora $T$ ha un ramo di altezza $\omega$.
-\end{lemma}
 
-\begin{exampleblock}{Domanda}
-Possiamo generalizzare il lemma di König per cardinali maggiori di $\omega$?
-\end{exampleblock}
-
-\pause
-
-\begin{definition}
-Sia $\kappa$ un cardinale. Diciamo che $\kappa$ ha la \emph{tree property}, in simboli $\TP(\kappa)$, se è vero il seguente enunciato:\\
+Sia $\kappa$ un cardinale. Diciamo che $\kappa$ ha la \emph{tree property}, in simboli $\TP(\kappa)$, se è vero il seguente enunciato:
+\begin{center}
 \textit{Se $T$ è un albero di altezza $\kappa$ i cui livelli hanno taglia $< \kappa$, allora $T$ ha un ramo di altezza $\kappa$.}
-\end{definition}
+\end{center}
 
 \pause
 
@@ -588,7 +594,7 @@ Nel 1963, Paul Cohen introdusse la tecnica del \emph{forcing} per dimostrare che
 
 L'\emph{ipotesi del continuo generalizzata}, in simboli \GCH, è il seguente enunciato:
 \begin{center}
-Sia $X$ un insieme infinito. Non esiste nessun insieme $Y$ tale che $|X| < |Y| < |{\PP(X)}|$.
+\textit{Sia $X$ un insieme infinito. Non esiste nessun insieme $Y$ tale che $|X| < |Y| < |{\PP(X)}|$.}
 \end{center}
 
 \pause
@@ -603,7 +609,7 @@ Anche \GCH è indipendente da \ZFC.
 \vspace{10pt}
 
 \begin{definition}
-Un cardinale infinito $\kappa$ è \emph{regolare} se, per ogni famiglia $\F$ di insiemi di taglia $<\kappa$, $|\bigcup \F| = \kappa$ implica $|\F| = \kappa$. I cardinali non regolari si dicono \emph{singolari}.
+Un cardinale infinito $\kappa$ è \emph{regolare} se, per ogni famiglia $\F$ di insiemi di taglia $<\kappa$, $|\bigcup \F| = \kappa$ implica $|\F| = \kappa$. I cardinali infiniti non regolari si dicono \emph{singolari}.
 \end{definition}
 
 \pause
@@ -1005,25 +1011,64 @@ Un albero $(T,<)$ di altezza $\alpha \leq \omega_1$ si dice \emph{normale} se:.
 \end{frame}
 
 
-\begin{frame}{Una famiglia di alberi normali}
+\begin{frame}{Un esempio di albero normale}
 
-\begin{example}
-Consideriamo la famiglia di tutti gli alberi $T$ che soddisfano le seguenti proprietà: per qualche $\alpha < \omega_1$,
-\begin{enumerate}[(i)]
-\item ogni elemento $t \in T$ è una funzione $t \colon \beta \to 2$, con $\beta < \alpha$;
-\item $T$ è chiuso per segmenti iniziali, i.e.\ $t \in T$ implica $t \restr \gamma \in T$ per ogni $\gamma$;
-\item se $t \colon \beta \to 2$ è in $T$ e $\beta+1 < \alpha$, allora $t \conc 0, t \conc 1 \in T$;
-\item se $t \colon \beta \to 2$ è in $T$ e $\beta \leq \gamma < \alpha$, allora esiste $s \colon \gamma \to 2$ tale che $t \sse s$;
-\item $T \cap {}^{\beta} 2$ è numerabile per ogni $\beta < \alpha$.
-\end{enumerate}
-\end{example}
+L'albero 
+\[
+T \defeq \{s \mid s \colon \alpha \to 2 \text{ con $\alpha < \omega_1$ e $s$ ha un numero finito di 1}\}
+\]
+considerato prima è normale.
+
+\begin{center}
+\begin{forest}
+ for tree={grow=north}
+	[$\emptyset$, 
+ 		[1, 
+ 			[11,
+ 				[111, 
+ 					[$\vdots$,edge=dashed [,edge=dashed]]
+ 				]
+ 				[110,
+ 					[$\vdots$,edge=dashed [,edge=dashed]]
+ 				]
+ 			]
+ 			[10,
+ 				[101, 
+ 					[$\vdots$,edge=dashed [,edge=dashed]]
+ 				]
+ 				[100,
+ 					[$\vdots$,edge=dashed [,edge=dashed]]
+ 				]
+ 			]
+ 		]
+ 		[0, 
+ 			[01,
+ 				[011, 
+ 					[$\vdots$,edge=dashed [,edge=dashed]]
+ 				]
+ 				[010,
+ 					[$\vdots$,edge=dashed [,edge=dashed]]
+ 				]
+ 			]
+ 			[00,
+ 				[001, 
+ 					[$\vdots$,edge=dashed [,edge=dashed]]
+ 				]
+ 				[000,
+ 					[$0^\alpha$,edge=dashed [,edge=dashed]]
+ 				]
+ 			]
+ 		]
+ 	]
+\end{forest}
+\end{center}
 
 \end{frame}
 
 
-\begin{frame}{La famiglia di alberi normali}
+\begin{frame}{Unicità degli alberi normali numerabili}
 
-È immediato verificare che gli alberi dell'esempio precedente sono tutti normali. \pause Ma non solo: la famiglia dell'esempio precedente esaurisce la classe degli alberi normali numerabili. Infatti:
+Se ``tagliamo'' l'albero precedente ad altezza $\alpha < \omega_1$, otteniamo banalmente un albero $T|\alpha$ di altezza $\alpha$. Tali $T|\alpha$ per $\alpha < \omega_1$ sono tutti normali. \pause Ma non solo: la famiglia $\{T|\alpha : \alpha < \omega_1\}$ esaurisce la classe degli alberi normali numerabili. Infatti:
 
 \pause
 
