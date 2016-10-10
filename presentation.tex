@@ -13,6 +13,13 @@
 \usepackage{xspace}
 \usepackage{xcolor}
 
+\usepackage{tikz-cd}
+\usepackage{tikz}
+\usetikzlibrary{calc} 
+\usetikzlibrary{decorations.text}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{arrows}
+
 %%% inizio comandi per stile per teoremi: "numero. Titolo" %%%
 \newtheoremstyle{num.custom-title}
   {\topsep}   % ABOVESPACE
@@ -159,6 +166,7 @@
 \renewcommand{\iff}{\Leftrightarrow}
 \newcommand{\forces}{\Vdash}
 
+\renewcommand{\emph}[1]{\textbf{#1}}
 
 
 
@@ -188,22 +196,160 @@
 \tableofcontents[hideallsubsections]
 \end{frame}
 
-\section{Alberi}
 
-\begin{frame}{Alberi}
+\section{L'ipotesi di Suslin}
+
+\begin{frame}{Alcune proprietà elementari per gli ordini}
+
+Consideriamo un ordine parziale $(P,<)$.
+
+\begin{definition}
+$(P,<)$ è un ordine \emph{lineare} se ogni due elementi di $P$ sono confrontabili, ovvero $\forall x,y \in P \ [x<y \vee y<x \vee x=y]$.
+\end{definition}
+
+\begin{definition}
+$(P,<)$ è \emph{denso} se, per ogni $x,y \in P$ tali che $x<y$, esiste $z \in P$ tale che $x < z < y$.
+\end{definition}
+
+\begin{definition}
+$(P,<)$ è \emph{Dedekind-completo} se ogni sottoinsieme superiormente limitato ha un estremo superiore in $P$.
+\end{definition}
+
+\end{frame}
+
+
+\begin{frame}{La condizione della catena numerabile}
+
+Definiamo ora una proprietà meno nota:
+
+\pause
+
+\begin{definition}
+Diciamo che un ordine parziale $(P,<)$ soddisfa la \emph{condizione della catena numerabile} (ccc) se ogni famiglia di intervalli aperti mutualmente disgiunti è numerabile.
+\end{definition}
+
+\pause
+
+È noto che la retta reale $(\R,<)$ con l'ordine canonico è un ordine lineare, denso e Dedekind-completo. Inoltre, $(\R,<)$ soddisfa anche la ccc.
+
+\begin{overprint}
+
+\onslide<4>
+\begin{center}
+\begin{tikzpicture}[scale=8]
+\draw[<->, thick] (-0.15,0) -- (1.1,0);
+
+\draw[(-, ultra thick, blue] (-0.03,0) -- (-0.14,0);
+\draw[(-), ultra thick, blue] (0.05,0) -- (0.15,0);
+\draw[(-), ultra thick, blue] (0.20,0) -- (0.25,0);
+\draw[(-), ultra thick, blue] (0.32,0) -- (0.6,0);
+\draw[(-), ultra thick, blue] (0.7,0) -- (0.8,0);
+\draw[(-, ultra thick, blue] (0.88,0) -- (1.09,0);
+\draw (-0.2,0) node {\scalebox{1.3}{$\R:$}};
+\end{tikzpicture}
+\end{center}
+
+\onslide<5>
+\begin{center}
+\begin{tikzpicture}[scale=8]
+\draw[<->, thick] (-0.15,0) -- (1.1,0);
+
+\draw[(-, ultra thick, blue] (-0.03,0) -- (-0.14,0);
+\draw[(-), ultra thick, blue] (0.05,0) -- (0.15,0);
+\draw[(-), ultra thick, blue] (0.20,0) -- (0.25,0);
+\draw[(-), ultra thick, blue] (0.32,0) -- (0.6,0);
+\draw[(-), ultra thick, blue] (0.7,0) -- (0.8,0);
+\draw[(-, ultra thick, blue] (0.88,0) -- (1.09,0);
+\draw (-0.2,0) node {\scalebox{1.3}{$\R:$}};
+
+\coordinate (a) at (0.01,0);
+\coordinate (b) at (0.175,0);
+\coordinate (c) at (0.285,0);
+\coordinate (d) at (0.65,0);
+\coordinate (e) at (0.84,0);
+\fill [red] (a) circle (.45pt);
+\fill [red] (b) circle (.45pt);
+\fill [red] (c) circle (.45pt);
+\fill [red] (d) circle (.45pt);
+\fill [red] (e) circle (.45pt);
+
+\coordinate (f) at (-0.225,-0.13);
+\fill [red] (f) circle (.45pt);
+\draw (-0.13,-0.13) node {\scalebox{1.3}{$\in \Q$}};
+\end{tikzpicture}
+\end{center}
+
+\end{overprint}
+
+\end{frame}
+
+
+\begin{frame}{La retta reale è separabile}
+
+\begin{alertblock}{Osservazione}
+Nell'argomento rappresentato graficamente, abbiamo in realtà usato il fatto che $\R$ è \emph{separabile}, ovvero ammette un sottoinsieme numerabile la cui chiusura topologica è tutto $\R$ (ad esempio, $\Q$ è un tale sottoinsieme).
+\end{alertblock}
+
+\end{frame}
+
+
+\begin{frame}{Caratterizzazione della retta reale come ordine}
+
+La retta reale è caratterizzabile in termini di queste proprietà:
+
+\begin{theorem}[Cantor, 1895]
+Sia $(R,\prec)$ un insieme linearmente ordinato, denso, senza estremi, separabile e Dedekind-completo. Allora $(R,\prec)$ è isomorfo a $(\R,<)$.
+\end{theorem}
+
+\pause
+
+L'\emph{ipotesi di Suslin} (\SH), formulata da Suslin nel 1920, afferma che il teorema resta valido se sostituiamo l'ipotesi di separabilità con la più debole ccc.
+
+\pause
+
+\begin{exampleblock}{Domanda}
+L'ipotesi di Suslin è vera o falsa?
+\end{exampleblock}
+
+\pause 
+
+\begin{alertblock}{Spoiler}
+Nessuna delle due.
+\end{alertblock}
+
+\end{frame}
+
+
+\section{Alberi ``bassi''}
+
+%\begin{frame}
+%
+%\begin{definition}
+%Un \emph{albero} è un insieme parzialmente ordinato $(T,<)$ tale che, per ogni $x \in T$, l'insieme
+%\begin{center}
+%$\down x \defeq \{y \in T : y < x\}$
+%\end{center}
+%è bene ordinato da $<$. Gli elementi di $T$ vengono detti \emph{nodi}. 
+%\end{definition}
+%
+%\end{frame}
+
+\begin{frame}{Alberi di altezza $\pmb{\leq \omega}$}
+
+Diamo per il momento una definizione semplificata di albero:
 
 \begin{definition}
 Un \emph{albero} è un insieme parzialmente ordinato $(T,<)$ tale che, per ogni $x \in T$, l'insieme
 \begin{center}
 $\down x \defeq \{y \in T : y < x\}$
 \end{center}
-è bene ordinato da $<$. Gli elementi di $T$ vengono detti \emph{nodi}. 
+è finito e linearmente ordinato da $<$. Gli elementi di $T$ vengono detti \emph{nodi}. 
 \end{definition}
 
 \end{frame}
 
 
-\begin{frame}{Alberi}
+\begin{frame}{Alberi di altezza $\pmb{\leq \omega}$}
 
 \vspace{10pt}
 
@@ -296,15 +442,20 @@ $\down x \defeq \{y \in T : y < x\}$
 \end{frame}
 
 
-\begin{frame}{L'albero ${}^{< \omega} 2$}
+\begin{frame}{L'albero $\pmb{{}^{< \omega} 2}$}
+
+Ricordiamo che $\omega$ indica semplicemente $\N$.
+
+\pause
 
 L'insieme delle sequenze binarie finite è 
 \[
 {}^{< \omega} 2 \defeq \{s \mid s \colon n \to 2 \text{ per qualche } n < \omega\}.
 \]
-Se definiamo l'ordine su ${}^{< \omega} 2$ dato da $s < t \iff s \subsetneq t$, otteniamo un albero binario.
+Se definiamo l'ordine su ${}^{< \omega} 2$ stabilendo che $s < t$ se e solo se $s$ è un prefisso di $t$, otteniamo un albero binario.
 
-\visible<2->{
+\vspace{-7pt}
+
 \begin{center}
 \begin{forest}
  for tree={grow=north}
@@ -348,27 +499,36 @@ Se definiamo l'ordine su ${}^{< \omega} 2$ dato da $s < t \iff s \subsetneq t$, 
  	]
 \end{forest}
 \end{center}
-}
 
 \end{frame}
 
+
+
+%\begin{frame}{Nozioni di base}
+%Sia $T$ un albero.
+%\begin{itemize}
+%\item L'\emph{altezza} di $x \in T$ è l'ordinale $\type(\down x)$.
+%\item L'\emph{$\alpha$-esimo livello di $T$} è l'insieme degli elementi di $T$ che hanno altezza $\alpha$.
+%\item L'\emph{altezza di $T$} è il più piccolo ordinale $\gamma$ tale che l'altezza di ogni $x \in T$ è $< \gamma$.
+%\item Un \emph{ramo} è un sottoinsieme linearmente ordinato massimale di $T$. L'altezza di un ramo si definisce nello stesso modo.
+%\item Un ramo è \emph{cofinale in $T$} se ha la stessa altezza di $T$.
+%%\item $T|\alpha$ is the subset of $T$ which contains every element of order strictly less than $\alpha$, i.e.\ $T|\alpha \defeq \cup_{\xi < \alpha} U_\xi$. Obviously $T|\alpha$ has height $\alpha$ if $\alpha \leq \height(T)$.
+%%\item We say that a tree $(T_2,<_2)$ is an \emph{extension} of $(T_1,<_1)$ if ${<_1} = {<_2} \cap (T_1 \times T_1)$, an \emph{end-extension} if $T_1=T_2|\alpha$ for some $\alpha$.
+%\end{itemize}
+%\end{frame}
 
 
 \begin{frame}{Nozioni di base}
-Sia $T$ un albero.
-\begin{itemize}
-\item L'\emph{altezza} di $x \in T$ è l'ordinale $\type(\down x)$.
-\item L'\emph{$\alpha$-esimo livello di $T$} è l'insieme degli elementi di $T$ che hanno altezza $\alpha$.
-\item L'\emph{altezza di $T$} è il più piccolo ordinale $\gamma$ tale che l'altezza di ogni $x \in T$ è $< \gamma$.
-\item Un \emph{ramo} è un sottoinsieme linearmente ordinato massimale di $T$. L'altezza di un ramo si definisce nello stesso modo.
-\item Un ramo è \emph{cofinale in $T$} se ha la stessa altezza di $T$.
-%\item $T|\alpha$ is the subset of $T$ which contains every element of order strictly less than $\alpha$, i.e.\ $T|\alpha \defeq \cup_{\xi < \alpha} U_\xi$. Obviously $T|\alpha$ has height $\alpha$ if $\alpha \leq \height(T)$.
-%\item We say that a tree $(T_2,<_2)$ is an \emph{extension} of $(T_1,<_1)$ if ${<_1} = {<_2} \cap (T_1 \times T_1)$, an \emph{end-extension} if $T_1=T_2|\alpha$ for some $\alpha$.
-\end{itemize}
+Sia $T$ un albero. Possiamo definire in modo ovvio l'\emph{altezza} di un nodo in $T$ e l'\emph{$n$-esimo livello} di $T$. Inoltre, se l'altezza massima dei nodi in $T$ è $n$, allora diciamo che $T$ ha altezza $n+1$. Se i nodi in $T$ hanno altezza arbitrariamente grande, diciamo che $T$ ha altezza $\omega$, i.e.\ il primo cardinale infinito.
+
+\begin{definition}
+Un \emph{ramo} in $T$ è un sottoinsieme linearmente ordinato massimale di $T$. L'altezza di un ramo si definisce come quella degli alberi.
+\end{definition}
+
 \end{frame}
 
 
-\begin{frame}{L'albero ${}^{< \omega} 2$}
+\begin{frame}{L'albero $\pmb{{}^{< \omega} 2}$}
 \vspace{13pt}
 
 \begin{overprint}
@@ -426,10 +586,11 @@ Sia $T$ un albero.
 \end{frame}
 
 
-\section{La Tree Property}
-
-
 \begin{frame}{Il Lemma di König}
+
+Le osservazioni fatte per ${}^{<\omega} 2$ valgono in generale:
+
+\pause
 
 \begin{lemma}[König, 1927]
 Sia $T$ un albero di altezza $\omega$. Se i livelli di $T$ sono insiemi finiti, allora $T$ ha un ramo infinito.
@@ -438,7 +599,7 @@ Sia $T$ un albero di altezza $\omega$. Se i livelli di $T$ sono insiemi finiti, 
 \pause
 
 \begin{alertblock}{Osservazione}
-Possiamo sostituire ``$T$ ha un ramo infinito'' con ``$T$ ha un ramo di altezza $\omega$'' oppure ``$T$ ha un ramo cofinale''.
+Possiamo sostituire ``$T$ ha un ramo infinito'' con ``$T$ ha un ramo di altezza $\omega$''.
 \end{alertblock}
 
 \pause
@@ -449,402 +610,13 @@ Possiamo generalizzare il lemma di König per cardinali maggiori di $\omega$?
 
 \end{frame}
 
-% mostrare che il lemma è chiaramente vero in 2^<omega
 
-
-\begin{frame}{Un albero di altezza $\pmb{\omega_1}$}
-
-
-\begin{overprint}
-\onslide<1-2> Consideriamo l'albero $(T,<)$ dove
-\[
-T \defeq \{s \mid s \colon \alpha \to 2 \text{ con $\alpha < \omega_1$ e $s$ ha un numero finito di 1}\}
-\]
-e $<$ è come prima $\subsetneq$.
-
-%\onslide<3> Consideriamo l'albero $(T,<)$ dove
-%\[
-%T \defeq \{s \mid s \colon \alpha \to 2 \text{ con $\alpha < \omega_1$ e $s$ ha un numero finito di 1}\}
-%\]
-%e $<$ è come prima $\subsetneq$. Con $0^\alpha$ indichiamo $\underbrace{00000000 \ldots}_{\alpha}$
-
-\onslide<3>
-\vspace{-8pt}
-\begin{alertblock}{Osservazione}
-$T$ ha altezza $\omega_1$ e i livelli di $T$ sono tutti numerabili. In più, $\{0^\alpha : \alpha < \omega_1\}$ è un ramo in $T$ di altezza $\omega_1$. Non tutti i rami hanno altezza $\omega_1$: $\{1^n : n < \omega\}$ è un ramo di altezza $\omega$.
-\end{alertblock}
-\end{overprint}
-
-\vspace{-20pt}
-
-\visible<2->{
-\begin{center}
-\begin{forest}
- for tree={grow=north}
-	[$\emptyset$, 
- 		[1, 
- 			[11,
- 				[111, 
- 					[$\vdots$,edge=dashed [,edge=dashed]]
- 				]
- 				[110,
- 					[$\vdots$,edge=dashed [,edge=dashed]]
- 				]
- 			]
- 			[10,
- 				[101, 
- 					[$\vdots$,edge=dashed [,edge=dashed]]
- 				]
- 				[100,
- 					[$\vdots$,edge=dashed [,edge=dashed]]
- 				]
- 			]
- 		]
- 		[0, 
- 			[01,
- 				[011, 
- 					[$\vdots$,edge=dashed [,edge=dashed]]
- 				]
- 				[010,
- 					[$\vdots$,edge=dashed [,edge=dashed]]
- 				]
- 			]
- 			[00,
- 				[001, 
- 					[$\vdots$,edge=dashed [,edge=dashed]]
- 				]
- 				[000,
- 					[$0^\alpha$,edge=dashed [,edge=dashed]]
- 				]
- 			]
- 		]
- 	]
-\end{forest}
-\end{center}
-}
-\end{frame}
-
-
-\begin{frame}{La Tree Property}
-
-\vspace{5pt}
-
-
-Sia $\kappa$ un cardinale. Diciamo che $\kappa$ ha la \emph{tree property}, in simboli $\TP(\kappa)$, se è vero il seguente enunciato:
-\begin{center}
-\textit{Se $T$ è un albero di altezza $\kappa$ i cui livelli hanno taglia $< \kappa$, allora $T$ ha un ramo di altezza $\kappa$.}
-\end{center}
-
-\pause
-
-\begin{alertblock}{Osservazione}
-Il Lemma di König afferma che vale $\TP(\omega)$.
-\end{alertblock}
-
-\end{frame}
-
-
-\begin{frame}{Gli alberi di Aronszajn}
-
-\begin{definition}
-Se $T$ è un controesempio per $\TP(\kappa)$, allora $T$ si dice \emph{$\kappa$-albero di Aronszajn}.
-\end{definition}
-Quindi $T$ è un $\kappa$-albero di Aronszajn se ha altezza $\kappa$ e livelli di cardinalità $< \kappa$, ma non ha nessun ramo di altezza $\kappa$.
-
-\pause
-
-\begin{theorem}[Aronszajn, 1934]
-Esiste un $\omega_1$-albero di Aronszajn.
-\end{theorem}
-
-\end{frame}
-% valutare se far vedere che esistono sempre k-alberi di aronszajn se k è singolare
-
-\begin{frame}{Gli alberi di Aronszajn}
-
-\begin{theorem}[Specker, 1949]
-Sia $\kappa$ un cardinale infinito. Se $\kappa^{< \kappa} = \kappa$, allora esiste un $\kappa^+$-albero di Aronszajn.
-\end{theorem}
-
-\end{frame}
-
-
-\begin{frame}{L'ipotesi del continuo}
-
-\begin{exampleblock}{Domanda}
-Esiste un insieme $X$ tale che $|\N| < |X| < |\R|$?
-\end{exampleblock}
-
-\pause
-
-L'\emph{ipotesi del continuo}, in simboli \CH, è un'ipotesi formulata da Cantor e afferma che un tale insieme $X$ non esiste.
-
-\pause
-
-Nel 1940, Kurt Gödel dimostrò che nel sistema di assiomi \ZFC, \CH non può essere dimostrata falsa. Ovvero, \CH è \emph{consistente} con \ZFC.
-
-\pause
-
-Nel 1963, Paul Cohen introdusse la tecnica del \emph{forcing} per dimostrare che anche $\neg\CH$ è consistente con \ZFC. Quindi, complessivamente, \CH è \emph{indipendente} da \ZFC.
-
-\end{frame}
-
-
-\begin{frame}{L'ipotesi del continuo generalizzata}
-
-L'\emph{ipotesi del continuo generalizzata}, in simboli \GCH, è il seguente enunciato:
-\begin{center}
-\textit{Sia $X$ un insieme infinito. Non esiste nessun insieme $Y$ tale che $|X| < |Y| < |{\PP(X)}|$.}
-\end{center}
-
-\pause
-
-Anche \GCH è indipendente da \ZFC.
-
-\end{frame}
-
-
-\begin{frame}{Torniamo a $\TP(\kappa)$}
-
-\vspace{10pt}
-
-\begin{definition}
-Un cardinale infinito $\kappa$ è \emph{regolare} se, per ogni famiglia $\F$ di insiemi di taglia $<\kappa$, $|\bigcup \F| = \kappa$ implica $|\F| = \kappa$. I cardinali infiniti non regolari si dicono \emph{singolari}.
-\end{definition}
-
-\pause
-
-\begin{lemma}
-Assumiamo che \GCH valga. Sia $\kappa$ un cardinale regolare. Allora $\kappa^{<\kappa} = \kappa$.
-\end{lemma}
-
-\pause
-
-\begin{corollary}
-Assumiamo che \GCH valga. Sia $\kappa$ un cardinale regolare. Allora esiste un $\kappa^+$-albero di Aronszajn.
-\end{corollary}
-La tree property per $\kappa$ successore di un cardinale singolare oppure in assenza di \GCH è tuttora oggeto di ricerca.
-
-\end{frame}
-
-
-\section{L'ipotesi di Suslin}
-
-
-\begin{frame}{L'ipotesi di Suslin}
-
-\begin{theorem}[Cantor, 1895]
-Sia $(R,\prec)$ un insieme linearmente ordinato, denso, senza estremi, separabile e Dedekind completo. Allora $(R,\prec)$ è isomorfo a $(\R,<)$.
-\end{theorem}
-
-\pause
-
-L'\emph{ipotesi di Suslin} (\SH) afferma che il teorema resta valido se sostituiamo l'ipotesi di separabilità con la più debole \emph{condizione della catena numerabile} (ccc): ogni collezione di intervalli aperti non vuoti e mutualmente disgiunti è numerabile.
-
-\end{frame}
-
-
-\begin{frame}{Le linee di Suslin}
-
-\begin{definition}
-Una \emph{linea di Suslin} è un insieme linearmente ordinato, denso e che soddisfa la ccc, ma non è separabile.
-\end{definition}
-
-\pause
-
-Si verifica facilmente che per un insieme linearmente ordinato e denso, considerare il completamento di Dedekind ed aggiungere/eliminare estremi non influisce sulla proprietà di separabilità. Perciò:
-
-\pause
-
-\begin{block}{Fatto}
-\textit{L'ipotesi di Suslin è vera se e solo se non esiste nessuna linea di Suslin.}
-\end{block}
-
-\end{frame}
-
-
-\begin{frame}{Gli alberi di Suslin}
-
-\begin{definition}
-Un sottoinsieme $A$ di un albero si dice \emph{anticatena} se 
-\[
-\forall x,y \in A \ [x \nless y \ \wedge \ y \nless x].
-\]
-\end{definition}
-
-\pause
-
-\begin{definition}
-Un \emph{albero di Suslin} è un albero di altezza $\omega_1$ tale che ogni ramo è numerabile ed ogni anticatena è numerabile.
-\end{definition}
-
-\pause
-
-\begin{theorem}[Kurepa, 1935]
-Esiste una linea di Suslin se e solo se esiste un albero di Suslin.
-\end{theorem}
-
-\end{frame}
-
-
-\begin{frame}{L'indipendenza di \SH}
-
-L'esistenza di alberi di Suslin non è dimostrabile né refutabile in \ZFC. Più precisamente:
-
-\begin{theorem}[Tennenbaum, 1963]
-C'è un modello di \ZFC in cui esiste un albero di Suslin.
-\end{theorem}
-
-\begin{theorem}[Solovay-Tennenbaum, 1971]
-C'è un modello di \ZFC in cui non esiste nessun albero di Suslin.
-\end{theorem}
-
-Per entrambi i risultati venne utilizzata la tecnica del forcing.
-
-\end{frame}
-
-
-\begin{frame}{La consistenza di \SH: uno sguardo alla dimostrazione}
-
-Supponiamo che $T$ sia un albero di Suslin (in $V$). Osserviamo che capovolgendo $T$ ``all'ingiù'', otteniamo un insieme di condizioni per il forcing. Inoltre:
-\begin{itemize}
-\item  Poiché ogni anticatena in $T$ è numerabile, tale insieme insieme ha la ccc (nel senso del forcing).
-\item Ogni filtro generico $G$ per $T$ è un ramo di altezza $\omega_1$. Ovvero, in $V[G]$, $T$ ha un ramo cofinale.
-\end{itemize}
-
-Quindi, se $T$ è un albero di Suslin e prendiamo $T$ come insieme di condizioni per il forcing, otteniamo che in ogni estensione generica $T$ non è più un albero di Suslin. Ovvero, per annullare la ``suslinità'' di un $T$ fissato, possiamo fare forcing con $T$ stesso.
-
-\end{frame}
-
-
-\begin{frame}{La consistenza di \SH: uno sguardo alla dimostrazione}
-
-\begin{alertblock}{Problema}
-Il forcing appena descritto ``annienta'' un determinato albero di Suslin, ma può succedere che allo stesso tempo ne produca di nuovi.
-\end{alertblock}
-
-Per risolvere questa complicazione serve un qualche tipo di iterazione. Un approccio naïve rischia però di non preservare i cardinali. Il problema venne definitivamente risolto da Solovay e Tennenbaum nel 1965, che introdussero il \emph{forcing iterato} e lo usarono per dimostrare la consistenza di \SH.
-
-\end{frame}
-
-
-\section{L'ipotesi di Kurepa}
-
-
-\begin{frame}{Gli alberi di Kurepa}
-
-\begin{definition}
-Un \emph{albero di Kurepa} è un albero di altezza $\omega_1$ tale che ogni livello è numerabile e in cui ci sono almeno $\aleph_2$ rami cofinali distinti.
-\end{definition}
-
-L'\emph{ipotesi di Kurepa} asserisce che esistono alberi di Kurepa.
-
-\pause
-
-L'ipotesi di Kurepa è consistente con \ZFC:
-
-\begin{theorem}[Stewart, 1966]
-C'è un modello di \ZFC in cui esiste un albero di Kurepa.
-\end{theorem}
-
-\end{frame}
-
-
-\begin{frame}{L'ipotesi di Kurepa e i cardinali inaccessibili}
-
-\vspace{5pt}
-
-\begin{definition}
-Un cardinale $\kappa > \omega$ si dice \emph{inaccessibile} se è regolare e $2^\lambda < \kappa$ per ogni cardinale $\lambda < \kappa$.
-\end{definition}
-
-\begin{block}{Fatto}
-\textit{\ZFC non può dimostrare che l'esistenza di un cardinale inaccessibile è consistente con \ZFC.}
-\end{block}
-
-\pause
-
-\begin{theorem}[Silver, 1971]
-Assumiamo che esista un cardinale inaccessibile. Allora c'è un modello di \ZFC in cui non esistono alberi di Kurepa.
-\end{theorem}
-
-Si dimostra che, se non esistono alberi di Kurepa, allora esiste un cardinale inaccessibile. Quindi l'esistenza di cardinali inaccessibili è \emph{equiconsistente} con la negazione dell'ipotesi di Kurepa.
-
-\end{frame}
-
-
-\section{Alberi in $L$}
-
-
-\begin{frame}{L'universo costruibile di Gödel}
-
-\begin{definition}
-La \emph{gerarchia costruibile di Gödel} è la sequenza $\langle L_\alpha \mid \alpha \in \Ord \rangle$ definita ricorsivamente così:
-\begin{align*}
-L_0 &= \emptyset;\\
-L_{\alpha+1} &= \operatorname{def}(L_\alpha);\\
-L_{\eta} &= \bigcup_{\gamma < \eta} L_\gamma \quad \text{se $\eta$ è limite};
-\end{align*}
-dove $\operatorname{def}(L_\alpha)$ è la collezione dei sottoinsiemi di $L_\alpha$ definibili nella struttura $(L_\alpha,\in)$. L'\emph{universo costruibile di Gödel} è $L \defeq \bigcup_{\alpha \in \Ord} L_\alpha$.
-\end{definition}
-
-\begin{block}{Fatto}
-\textit{L'enunciato ``$V=L$'' è consistente con \ZFC.}
-\end{block}
-
-\end{frame}
-
-
-\begin{frame}{Alberi di Suslin in $L$}
-
-\vspace{5pt}
-
-\begin{definition}
-Il \emph{principio del diamante} ($\diamondsuit$) afferma che esiste una successione $\langle S_\alpha : \alpha < \omega_1 \rangle$ dove $S_\alpha \sse \alpha$, tale che per ogni $X \sse \omega_1$, l'insieme $\{\alpha < \omega_1 : X \cap \alpha = S_\alpha \}$ è stazionario in $\omega_1$.
-\end{definition}
-
-\pause
-
-\begin{theorem}[Jensen, 1971]
-$\diamondsuit$ implica che esiste un albero di Suslin.
-\end{theorem}
-
-\pause
-
-\begin{theorem}[Jensen, 1971]
-$V=L \imp \diamondsuit$. In particolare, se $V=L$ allora esiste un albero di Suslin.
-\end{theorem}
-
-\pause
-
-In realtà, Jensen dimostrò ``$V=L \imp$ esiste un albero di Suslin'' già nel 1968. Introdusse $\diamondsuit$ più tardi, identificandolo e isolandolo proprio a partire dalla dimostrazione di questo fatto.
-
-\end{frame}
-
-
-\begin{frame}{Alberi di Kurepa in $L$}
-
-Ispirandosi al teorema di Jensen, qualche anno più tardi Solovay dimostrò che:
-
-\begin{theorem}[Solovay, 1971]
-Se $V=L$, allora esiste un albero di Kurepa.
-\end{theorem}
-
-\pause
-
-Anche dalla dimostrazione di questo teorema venne estratto un principio più tecnico è generale: $\diamondsuit^+$.\\
-\pause
-$\diamondsuit^+$ implica che esiste un albero di Kurepa. Anche $\diamondsuit^+$ vale in $L$, ma è dimostrabilmente più forte rispetto a $\diamondsuit$.
-
-\end{frame}
-
-
-\section{Automorfismi di alberi}
+\section{Isomorfismi di alberi}
 
 \begin{frame}{Isomorfismi di alberi}
 
 \begin{definition}
-Consideriamo due alberi $(T_1,<_1)$ e $(T_2,<_2)$. Un \emph{isomorfismo} di $T_1$ con $T_2$ è un isomorfismo d'ordini, ovvero una biezione $\sigma \colon T_1 \to T_2$ tale che $x <_1 y \iff \sigma(x) <_2 \sigma(y)$. Un \emph{automorfismo} di un albero è un isomorfismo con se stesso.
+Consideriamo due alberi $(T_1,<_1)$ e $(T_2,<_2)$. Un \emph{isomorfismo} di $T_1$ con $T_2$ è un isomorfismo d'ordini, ovvero una biezione $\sigma \colon T_1 \to T_2$ tale che $x <_1 y \iff \sigma(x) <_2 \sigma(y)$.
 \end{definition}
 
 \pause
@@ -916,29 +688,6 @@ Se $\sigma$ è un isomorfismo di $T_1$ con $T_2$, è immediato che:
 \end{center}
 }
 
-
-%\begin{center}
-%\begin{forest}
-% for tree={grow=north}
-%	[$\bullet$, text=blue
-% 		[$\bullet$, edge=blue,text=blue [$\bullet$, edge=blue,text=blue][$\bullet$, edge=blue,text=blue][$\bullet$, edge=blue,text=blue][$\bullet$, edge=blue,text=blue]]
-% 		[$\bullet$, edge=red,text=red, [$\bullet$, edge=red,text=red][$\bullet$, edge=red,text=red][$\bullet$, edge=red,text=red]]
-% 		[$\bullet$, edge=green,text=green [$\bullet$, edge=green,text=green][$\bullet$, edge=green,text=green]]
-%	]
-%\end{forest}
-%\end{center}
-%
-%\begin{center}
-%\begin{forest}
-% for tree={grow=north}
-%	[$\bullet$, text=blue
-% 		[$\bullet$, edge=blue,text=blue [$\bullet$, edge=blue,text=blue][$\bullet$, edge=blue,text=blue][$\bullet$, edge=blue,text=blue][$\bullet$, edge=blue,text=blue]]
-% 		[$\bullet$, edge=green,text=green [$\bullet$, edge=green,text=green][$\bullet$, edge=green,text=green]]
-% 		[$\bullet$, edge=red,text=red, [$\bullet$, edge=red,text=red][$\bullet$, edge=red,text=red][$\bullet$, edge=red,text=red]]
-% 	]
-%\end{forest}
-%\end{center}
-
 \end{frame}
 
 
@@ -998,13 +747,370 @@ Se $\sigma$ è un isomorfismo di $T_1$ con $T_2$, è immediato che:
 \begin{frame}{Gli alberi normali}
 
 \begin{definition}
+Un albero $(T,<)$ si dice \emph{normale} se:.
+\begin{enumerate}[(i)]
+\item $T$ ha un'unica radice;
+\item ogni livello di $T$ è numerabile;
+\item se $x$ non è massimale in $T$, allora ci sono esattamente due \emph{successori immediati} di $x$;
+\item se $x \in T$ allora c'è un $y>x$ ad ogni livello superiore di $T$;
+%\item se $\eta < \alpha$ è un ordinale limite e $x,y \in \L_\eta^T$ sono tali che $\down x = \down y$, allora $x=y$.
+\end{enumerate}
+\end{definition}
+
+\end{frame}
+
+
+\begin{frame}{$\pmb{{}^{< \omega} 2}$ è normale}
+
+L'albero delle sequenze binarie finite ${}^{< \omega} 2$ è chiaramente normale.
+
+
+\begin{center}
+\begin{forest}
+ for tree={grow=north}
+	[$\emptyset$, 
+ 		[1, 
+ 			[11,
+ 				[111, 
+ 					[,edge=dashed][,edge=dashed]
+ 				]
+ 				[110,
+ 					[,edge=dashed][,edge=dashed]
+ 				]
+ 			]
+ 			[10,
+ 				[101, 
+ 					[,edge=dashed][,edge=dashed]
+ 				]
+ 				[100,
+ 					[,edge=dashed][,edge=dashed]
+ 				]
+ 			]
+ 		]
+ 		[0, 
+ 			[01,
+ 				[011, 
+ 					[,edge=dashed][,edge=dashed]
+ 				]
+ 				[010,
+ 					[,edge=dashed][,edge=dashed]
+ 				]
+ 			]
+ 			[00,
+ 				[001, 
+ 					[,edge=dashed][,edge=dashed]
+ 				]
+ 				[000,
+ 					[,edge=dashed][,edge=dashed]
+ 				]
+ 			]
+ 		]
+ 	]
+\end{forest}
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}{Unicità degli alberi normali}
+
+\pause
+
+\begin{alertblock}{Osservazione}
+È immediato dimostrare per induzione che due qualsiasi alberi normali (di altezza $\leq \omega$), se hanno la stessa altezza allora sono isomorfi.
+\end{alertblock}
+
+\pause
+
+\begin{exampleblock}{Domanda}
+Vale lo stesso anche per alberi più alti?
+\end{exampleblock}
+
+\end{frame}
+
+
+\begin{frame}{Ricapitolando}
+Abbiamo quindi tre domande a cui rispondere:
+\begin{itemize}
+\item[\textcolor{mLightGreen}{1)}] L'ipotesi di Suslin è vera?
+\item[\textcolor{mLightGreen}{2)}] Il Lemma di König si può generalizzare a cardinali $>\omega$?
+\item[\textcolor{mLightGreen}{3)}] Due alberi normali di uguale altezza $>\omega$ sono isomorfi?
+\end{itemize}
+
+\pause
+
+La tesi si occupa di rispondere a queste domande, oltre a presentare alcuni dei risultati correlati più importanti. Descriveremo ora brevemente le risposte ai quesiti posti sopra.
+
+\end{frame}
+
+
+\section{Alberi}
+
+\begin{frame}{Alberi}
+
+Per trattare alberi di altezza arbitraria, è necessario innanzitutto generalizzare la definizione stessa di albero. Ricordiamo che:
+
+\begin{definition}
+Un ordine parziale $(P,<)$ è un \emph{buon ordine} se è un ordine lineare ed ogni sottoinsieme di $P$ ha un minimo.
+\end{definition}
+
+\pause
+
+\begin{definition}
+Un \emph{albero} è un insieme parzialmente ordinato $(T,<)$ tale che, per ogni $x \in T$, l'insieme
+\[
+\down x \defeq \{y \in T : y < x\}
+\]
+è bene ordinato da $<$.
+\end{definition}
+
+D'ora in poi, quando usiamo il termine albero ci riferiamo alla definizione appena data.
+
+\end{frame}
+
+
+\begin{frame}{Nozioni di base}
+
+Consideriamo un albero $(T,<)$ e un nodo $x \in T$. Poiché $\down x$ è un insieme bene ordinato, c'è un ordinale isomorfo ad esso. Tale ordinale si dice \emph{tipo d'ordine} di $\down x$. Diciamo che $x$ \emph{ha altezza} $\alpha$ se il tipo d'ordine di $\down x$ è $\alpha$.
+
+\pause
+
+Le definizioni di livello e di altezza di un albero/ramo si generalizzano in modo immediato rispetto a quelle date in precedenza, usando però la nuova definizione di altezza di un nodo.
+
+\end{frame}
+
+
+\begin{frame}{Un albero di altezza $\pmb{\omega_1}$}
+
+\begin{overprint}
+\onslide<1> Il cardinale $\omega_1$ è il più piccolo ordinale che non si inietta in $\omega$.
+\onslide<2-3> Il cardinale $\omega_1$ è il più piccolo ordinale che non si inietta in $\omega$.\\
+Consideriamo l'albero $(T,<)$ dove
+\[
+T \defeq \{s \mid s \colon \alpha \to 2 \text{ con $\alpha < \omega_1$ e $s$ ha un numero finito di 1}\}
+\]
+e $s<t$ se e solo se $s$ è un prefisso di $t$.
+
+%\onslide<3> Consideriamo l'albero $(T,<)$ dove
+%\[
+%T \defeq \{s \mid s \colon \alpha \to 2 \text{ con $\alpha < \omega_1$ e $s$ ha un numero finito di 1}\}
+%\]
+%e $<$ è come prima $\subsetneq$. Con $0^\alpha$ indichiamo $\underbrace{00000000 \ldots}_{\alpha}$
+
+\onslide<4>
+\vspace{-8pt}
+\begin{alertblock}{Osservazione}
+$T$ ha altezza $\omega_1$ e i livelli di $T$ sono tutti numerabili. In più, $\{0^\alpha : \alpha < \omega_1\}$ è un ramo in $T$ di altezza $\omega_1$. Non tutti i rami hanno altezza $\omega_1$: $\{1^n : n < \omega\}$ è un ramo di altezza $\omega$.
+\end{alertblock}
+\end{overprint}
+
+\vspace{-20pt}
+
+\visible<3->{
+\begin{center}
+\begin{forest}
+ for tree={grow=north}
+	[$\emptyset$, 
+ 		[1, 
+ 			[11,
+ 				[111, 
+ 					[$\vdots$,edge=dashed [,edge=dashed]]
+ 				]
+ 				[110,
+ 					[$\vdots$,edge=dashed [,edge=dashed]]
+ 				]
+ 			]
+ 			[10,
+ 				[101, 
+ 					[$\vdots$,edge=dashed [,edge=dashed]]
+ 				]
+ 				[100,
+ 					[$\vdots$,edge=dashed [,edge=dashed]]
+ 				]
+ 			]
+ 		]
+ 		[0, 
+ 			[01,
+ 				[011, 
+ 					[$\vdots$,edge=dashed [,edge=dashed]]
+ 				]
+ 				[010,
+ 					[$\vdots$,edge=dashed [,edge=dashed]]
+ 				]
+ 			]
+ 			[00,
+ 				[001, 
+ 					[$\vdots$,edge=dashed [,edge=dashed]]
+ 				]
+ 				[000,
+ 					[$0^\alpha$,edge=dashed [,edge=dashed]]
+ 				]
+ 			]
+ 		]
+ 	]
+\end{forest}
+\end{center}
+}
+\end{frame}
+
+
+\section{La Tree Property}
+
+\begin{frame}{Gli alberi di Aronszajn e la Tree Property}
+
+\begin{lemma}[König]
+Sia $T$ un albero di altezza $\omega$. Se i livelli di $T$ sono insiemi finiti, allora $T$ ha un ramo di altezza $\omega$.
+\end{lemma}
+
+\pause
+
+\begin{definition}
+Sia $\kappa$ un cardinale. $T$ è un \emph{$\kappa$-albero di Aronszajn} se ha altezza $\kappa$ e livelli di cardinalità $< \kappa$, ma non ha nessun ramo di altezza $\kappa$.
+\end{definition}
+
+\begin{alertblock}{Osservazione}
+Il Lemma di König afferma che non ci sono $\omega$-alberi di Aronszajn.
+\end{alertblock}
+
+\pause
+
+La \emph{tree property} per $\kappa$, in simboli $\TP(\kappa)$, è l'affermazione: 
+\begin{center}
+\textit{Non esistono $\kappa$-alberi di Aronszajn}.
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}{Gli alberi di Aronszajn}
+
+Quindi $\TP(\kappa)$ generalizza il lemma di König ad un generico $\kappa$. \pause Ma $\TP(\kappa)$ non è vera per ogni $\kappa$:
+
+\pause
+
+\begin{theorem}[Aronszajn, 1934]
+Esiste un $\omega_1$-albero di Aronszajn.
+\end{theorem}
+
+\pause
+
+\begin{theorem}[Specker, 1949]
+Sia $\kappa$ un cardinale infinito. Se $\kappa^{< \kappa} = \kappa$, allora esiste un $\kappa^+$-albero di Aronszajn.
+\end{theorem}
+
+\pause
+
+La tree property in tutti gli altri casi è tuttora oggetto di ricerca.
+\end{frame}
+
+
+\section{L'indipendenza dell'ipotesi di Suslin}
+
+
+\begin{frame}{Gli alberi di Suslin}
+
+\begin{definition}
+Un sottoinsieme $A$ di un albero si dice \emph{anticatena} se 
+\[
+\forall x,y \in A \ [x \nless y \ \wedge \ y \nless x].
+\]
+\end{definition}
+
+Ogni livello è banalmente un'anticatena.
+
+\pause
+
+\begin{definition}
+Un \emph{albero di Suslin} è un albero di altezza $\omega_1$ tale che ogni ramo è numerabile ed ogni anticatena è numerabile.
+\end{definition}
+
+\pause
+
+\begin{theorem}[Kurepa, 1935]
+L'ipotesi di Suslin è vera se e solo se non esiste nessun albero di Suslin.
+\end{theorem}
+
+\end{frame}
+
+
+\begin{frame}{L'ipotesi del continuo}
+
+Se $X$ è un insieme, denotiamo con $|X|$ la sua cardinalità.
+
+\begin{exampleblock}{Domanda}
+Esiste un insieme $X$ tale che $|\N| < |X| < |\R|$?
+\end{exampleblock}
+
+\pause
+
+L'\emph{ipotesi del continuo}, in simboli \CH, è un'ipotesi avanzata da Cantor nel 1878 e afferma che un tale insieme $X$ non esiste.
+
+\pause
+
+Nel 1940, Kurt Gödel dimostrò che nel sistema di assiomi \ZFC, \CH non può essere dimostrata falsa. Ovvero, \CH è \emph{consistente} con \ZFC.
+
+\pause
+
+Nel 1963, Paul Cohen introdusse la tecnica del \emph{forcing} per dimostrare che anche $\neg\CH$ è consistente con \ZFC. Quindi, complessivamente, \CH è \emph{indipendente} da \ZFC.
+
+\end{frame}
+
+
+\begin{frame}{L'indipendenza di \SH}
+
+L'esistenza di alberi di Suslin non è dimostrabile né refutabile in \ZFC. Più precisamente:
+
+\begin{theorem}[Tennenbaum, 1963]
+C'è un modello di \ZFC in cui esiste un albero di Suslin.
+\end{theorem}
+
+\begin{theorem}[Solovay-Tennenbaum, 1971]
+C'è un modello di \ZFC in cui non esiste nessun albero di Suslin.
+\end{theorem}
+
+Per entrambi i risultati venne utilizzata la tecnica del forcing.
+
+\end{frame}
+
+
+\begin{frame}{La consistenza di \SH: uno sguardo alla dimostrazione}
+
+Supponiamo che $T$ sia un albero di Suslin (in $V$). Osserviamo che capovolgendo $T$ ``all'ingiù'', otteniamo un insieme di condizioni per il forcing. Inoltre:
+\begin{itemize}
+\item  Poiché ogni anticatena in $T$ è numerabile, tale insieme ha la ccc (nel senso del forcing).
+\item Ogni filtro generico $G$ per $T$ è un ramo di altezza $\omega_1$. Ovvero, in $V[G]$, $T$ ha un ramo cofinale.
+\end{itemize}
+
+Quindi, se $T$ è un albero di Suslin e prendiamo $T$ come insieme di condizioni per il forcing, otteniamo che in ogni estensione generica $T$ non è più un albero di Suslin. Ovvero, per annullare la ``suslinità'' di un $T$ fissato, possiamo fare forcing con $T$ stesso.
+
+\end{frame}
+
+
+\begin{frame}{La consistenza di \SH: uno sguardo alla dimostrazione}
+
+\begin{alertblock}{Problema}
+Il forcing appena descritto ``annienta'' un determinato albero di Suslin, ma può succedere che allo stesso tempo ne produca di nuovi.
+\end{alertblock}
+
+Per risolvere questa complicazione serve un qualche tipo di iterazione. Un approccio naïve rischia però di non preservare i cardinali. Il problema venne definitivamente risolto da Solovay e Tennenbaum nel 1965, che introdussero il \emph{forcing iterato} e lo usarono per dimostrare la consistenza di \SH.
+
+\end{frame}
+
+
+\section{Isomorfismi e automorfismi}
+
+\begin{frame}{Gli alberi normali}
+
+Generalizziamo la nozione di albero normale ad alberi più alti:
+
+\begin{definition}
 Un albero $(T,<)$ di altezza $\alpha \leq \omega_1$ si dice \emph{normale} se:.
 \begin{enumerate}[(i)]
 \item $T$ ha un'unica radice;
 \item ogni livello di $T$ è numerabile;
 \item se $x$ non è massimale in $T$, allora ci sono esattamente due \emph{successori immediati} di $x$;
 \item se $x \in T$ allora c'è un $y>x$ ad ogni livello superiore di $T$;
-\item se $\eta < \alpha$ è un ordinale limite e $x,y \in \L_\eta^T$ sono tali che $\down x = \down y$, allora $x=y$.
+\item[\textcolor{red}{(v)}] se $\eta < \alpha$ è un ordinale limite e $x,y \in \L_\eta^T$ sono tali che $\down x = \down y$, allora $x=y$.
 \end{enumerate}
 \end{definition}
 
@@ -1079,7 +1185,7 @@ Siano $T_1$ e $T_2$ alberi normali di uguale altezza $\alpha < \omega_1$. Allora
 \pause
 
 \begin{exampleblock}{Domanda}
-È possibile generalizzare il teorema ad alberi normali di altezza $\omega_1$?
+È possibile generalizzare ulteriormente il teorema ad alberi normali di altezza $\omega_1$?
 \end{exampleblock}
 
 \end{frame}
@@ -1088,13 +1194,73 @@ Siano $T_1$ e $T_2$ alberi normali di uguale altezza $\alpha < \omega_1$. Allora
 \begin{frame}{Alberi normalizzati}
 
 \begin{block}{Fatto}
-\textit{Sia $T$ un albero di Aronszajn/Suslin/Kurepa. Allora esiste un albero di Aronszajn/Suslin/Kurepa che è normale.}
+\textit{Esiste un $\omega_1$-albero di Aronszajn che è normale.}
 \end{block}
 
 \pause
 
-Ovviamente un albero di Aronszajn non può essere isomorfo a un albero di Kurepa, quindi la risposta alla domanda precedente è negativa.
+Ovviamente un albero di Aronszajn non può essere isomorfo a un albero che ha rami di altezza $\omega_1$.
 
+\end{frame}
+
+
+\begin{frame}{Un albero normale con rami di altezza $\omega_1$}
+
+Ma l'albero
+\[
+T \defeq \{s \mid s \colon \alpha \to 2 \text{ con $\alpha < \omega_1$ e $s$ ha un numero finito di 1}\}
+\]
+considerato prima è normale e ha rami di altezza $\omega_1$!
+
+\begin{center}
+\begin{forest}
+ for tree={grow=north}
+	[$\emptyset$, 
+ 		[1, 
+ 			[11,
+ 				[111, 
+ 					[$\vdots$,edge=dashed [,edge=dashed]]
+ 				]
+ 				[110,
+ 					[$\vdots$,edge=dashed [,edge=dashed]]
+ 				]
+ 			]
+ 			[10,
+ 				[101, 
+ 					[$\vdots$,edge=dashed [,edge=dashed]]
+ 				]
+ 				[100,
+ 					[$\vdots$,edge=dashed [,edge=dashed]]
+ 				]
+ 			]
+ 		]
+ 		[0, 
+ 			[01,
+ 				[011, 
+ 					[$\vdots$,edge=dashed [,edge=dashed]]
+ 				]
+ 				[010,
+ 					[$\vdots$,edge=dashed [,edge=dashed]]
+ 				]
+ 			]
+ 			[00,
+ 				[001, 
+ 					[$\vdots$,edge=dashed [,edge=dashed]]
+ 				]
+ 				[000,
+ 					[$0^\alpha$,edge=dashed [,edge=dashed]]
+ 				]
+ 			]
+ 		]
+ 	]
+\end{forest}
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}{Un albero normale con rami di altezza $\omega_1$}
+Quindi esistono alberi normali di altezza $\omega_1$ che non sono isomorfi.
 \end{frame}
 
 
@@ -1118,14 +1284,18 @@ Usando il fatto che tutti gli alberi normali numerabili della stessa altezza son
 \begin{frame}{Alberi di Suslin omogenei e rigidi}
 
 \begin{theorem}[Jensen, 1971]
-Se vale $\diamondsuit$, allora esiste un albero di Suslin normale e omogeneo.
+C'è un modello di \ZFC in cui esiste un albero di Suslin normale e omogeneo.
 \end{theorem}
 
 \pause
 
 \begin{theorem}[Jensen, 1971]
-Se vale $\diamondsuit$, allora esiste un albero di Suslin normale e rigido.
+C'è un modello di \ZFC in cui esiste un albero di Suslin normale e rigido.
 \end{theorem}
+
+\pause
+
+Per dimostrare questi due risultati, Jensen non ricorse al forcing, ma produsse i due alberi di Suslin all'interno dell'universo costruibile di Gödel.
 
 \end{frame}
 
